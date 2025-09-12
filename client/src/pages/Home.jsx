@@ -2,13 +2,15 @@ import React from "react";
 import Bannar from "../components/Bannar";
 import TopSell from "../components/TopSell";
 import AllProducts from "../components/products/AllProducts";
+import TopOfferProducts from "../components/TopOfferProducts";
 
 const Home = () => {
   return (
     <div>
       <Bannar />
-      <AllProducts />
-      {/* <TopSell /> */}
+      {/* <AllProducts /> */}
+      <TopSell />
+      <TopOfferProducts />
     </div>
   );
 };
