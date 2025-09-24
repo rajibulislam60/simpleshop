@@ -1,8 +1,15 @@
 import React from "react";
 import data from "./data";
+import { useNavigate } from "react-router";
 
 const TopSell = () => {
+  const navigate = useNavigate();
   const topSell = data.slice(0, 8);
+
+  const handleClicktoId = (id) => {
+    navigate(`/shop/${id}`);
+  };
+
   return (
     <div className="pt-[80px]">
       <h2 className="text-2xl font-bold mx-auto text-center mb-6">
@@ -12,6 +19,7 @@ const TopSell = () => {
         {topSell.map((item) => (
           <div
             key={item.id}
+            onClick={() => handleClicktoId(item.id)}
             className="border rounded-md shadow-xl flex flex-col"
           >
             <img

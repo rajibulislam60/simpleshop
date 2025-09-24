@@ -1,8 +1,14 @@
 import React from "react";
 import data from "../data";
+import { useNavigate } from "react-router";
 
 const AllProducts = ({ products }) => {
+  const navigate = useNavigate();
   const itemsToShow = products.length > 0 ? products : data;
+
+  const handleClicktoId = (id) => {
+    navigate(`/shop/${id}`);
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -10,6 +16,7 @@ const AllProducts = ({ products }) => {
         itemsToShow.map((item) => (
           <div
             key={item.id}
+            onClick={() => handleClicktoId(item.id)}
             className="border border-gray-500 rounded-md shadow-xl flex flex-col"
           >
             <img

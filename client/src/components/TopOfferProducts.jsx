@@ -1,8 +1,14 @@
 import React from "react";
 import data from "./data";
+import { useNavigate } from "react-router";
 
 const TopOfferProducts = () => {
+  const navigate = useNavigate();
   const topOffer = data.slice(0, 6);
+
+  const handleClicktoId = (id) => {
+    navigate(`/shop/${id}`);
+  };
 
   return (
     <div className="pt-[60px]">
@@ -13,6 +19,7 @@ const TopOfferProducts = () => {
         {topOffer.map((item) => (
           <div
             key={item.id}
+            onClick={() => handleClicktoId(item.id)}
             className="w-full max-w-[440px] h-[200px] overflow-hidden shadow-lg"
           >
             <img
