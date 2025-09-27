@@ -11,6 +11,7 @@ import { RouterProvider } from "react-router/dom";
 import RootLayOut from "./layout/RootLayOut";
 import Shop from "./pages/Shop";
 import SingleProduct from "./components/products/SingleProduct";
+import Order from "./pages/Order";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
           <Route index element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/shop/:id" element={<SingleProduct />} />
+          <Route path="/shop/order/:id" element={<Order />} />
         </Route>
       </Route>
     </>

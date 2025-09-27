@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import data from "../data";
 import Container from "./../Container";
 
 const SingleProduct = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const product = data.find((item) => item.id === parseInt(id));
   const [quantity, setQuantity] = useState(1);
 
@@ -14,6 +15,10 @@ const SingleProduct = () => {
 
   const increase = () => setQuantity((prev) => prev + 1);
   const decrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+  const handleOrder = (id) => {
+    navigate(`/shop/order/${id}`);
+  };
 
   return (
     <div className="mx-auto p-6">
@@ -55,7 +60,10 @@ const SingleProduct = () => {
                 </button>
               </div>
 
-              <button className="bg-blue-600 w-full text-white px-4 py-2 rounded hover:bg-blue-700">
+              <button
+                onClick={() => handleOrder(product.id)}
+                className="bg-blue-600 w-full text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
                 Order
               </button>
 
