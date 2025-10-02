@@ -20,8 +20,12 @@ const Order = () => {
   return (
     <div>
       <Container>
-        <div>
-          <img src={product.image} alt={product.name} />
+        <div className="flex justify-between items-center">
+          <img
+            className="w-30 h-10 object-cover"
+            src={product.image}
+            alt={product.name}
+          />
           <h3>{product.name}</h3>
           <h4>Quantity: {product.quantity}</h4>
           <h4>Price per unit: {product.price}</h4>
