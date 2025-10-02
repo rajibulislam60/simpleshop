@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
 import data from "../data";
-import Container from "./../Container";
+import Container from "../Container";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -16,8 +16,10 @@ const SingleProduct = () => {
   const increase = () => setQuantity((prev) => prev + 1);
   const decrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
-  const handleOrder = (id) => {
-    navigate(`/shop/order/${id}`);
+  const handleOrder = () => {
+    navigate(`/address`, {
+      state: { product, quantity },
+    });
   };
 
   return (

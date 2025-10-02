@@ -1,50 +1,90 @@
-import React from "react";
-import Container from "./../components/Container";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import Container from "../components/Container";
 
 const Address = () => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  const { product, quantity } = state || {};
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    city: "",
+  });
+
+  if (!product) {
+    return <h2 className="text-center mt-10">No product selected</h2>;
+  }
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/shop/order", {
+      state: { product, quantity, formData },
+    });
+  };
+
   return (
     <div>
       <Container>
         <div className="max-w-md mx-auto bg-white shadow-md rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">Delivery Address</h2>
-          <form className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
               type="text"
+              name="name"
               placeholder="Full Name"
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="border px-3 py-2 rounded"
             />
             <input
               type="tel"
+              name="phone"
               placeholder="Phone Number"
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              className="border px-3 py-2 rounded"
             />
             <input
               type="text"
+              name="address"
               placeholder="Address"
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              value={formData.address}
+              onChange={handleChange}
+              required
+              className="border px-3 py-2 rounded"
             />
+
+            {/* City Radio */}
             <div>
-              <p className="mb-2 font-medium">Select City:</p>
-              <div className="flex gap-4">
-                <label className="flex items-center gap-2">
-                  <input type="radio" name="city" value="Dhaka" />
-                  Dhaka
+              <p className="mb-2 font-medium">City:</p>
+              {["Dhaka", "Chattogram", "Khulna"].map((c) => (
+                <label key={c} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="city"
+                    value={c}
+                    checked={formData.city === c}
+                    onChange={handleChange}
+                  />
+                  {c}
                 </label>
-                <label className="flex items-center gap-2">
-                  <input type="radio" name="city" value="Chattogram" />
-                  Chattogram
-                </label>
-                <label className="flex items-center gap-2">
-                  <input type="radio" name="city" value="Khulna" />
-                  Khulna
-                </label>
-              </div>
+              ))}
             </div>
+
             <button
               type="submit"
-              className="bg-teal-600 hover:bg-teal-800 text-white py-2 px-4 rounded-md font-medium"
+              className="bg-blue-600 hover:bg-blue-800 text-white py-2 rounded"
             >
-              Submit
+              Confirm Address
             </button>
           </form>
         </div>
