@@ -11,7 +11,7 @@ const Search = ({ onSearch }) => {
   };
 
   return (
-    <div>
+    <div className="border-b-1">
       <Container>
         <div className="py-3 px-2 flex justify-between items-center">
           <div className="flex gap-8 items-center">
