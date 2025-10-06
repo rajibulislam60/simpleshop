@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import AddProduct from "./pages/AddProduct";
 import AllProduct from "./pages/AllProduct";
 import AllOrder from "./pages/AllOrder";
+import Edit from "./Components/Edit";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/allproduct" element={<AllProduct />} />
           <Route path="/allorder" element={<AllOrder />} />
+          <Route path="/edit/:id" element={<Edit />} />
         </Route>
       </Route>
     </>
