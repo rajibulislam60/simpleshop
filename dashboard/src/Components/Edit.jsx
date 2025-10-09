@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const Edit = () => {
-  // Example state for editing product data
   const [product, setProduct] = useState({
     name: "Smart Watch",
     description: "A modern smartwatch with health tracking features.",
@@ -11,13 +10,11 @@ const Edit = () => {
     image: "",
   });
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
 
-  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Updated Product:", product);

@@ -5,7 +5,6 @@ import image3 from "../images/3.png";
 import { NavLink } from "react-router";
 
 const AllProduct = () => {
-  // Product data
   const products = [
     {
       id: 1,
@@ -38,8 +37,6 @@ const AllProduct = () => {
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-700">
         All Products
       </h2>
-
-      {/* Table Header */}
       <div className="border-b border-gray-300 text-lg font-semibold text-gray-700">
         <ul className="grid grid-cols-7 gap-4 py-2 text-center">
           <li>ID</li>
@@ -52,7 +49,6 @@ const AllProduct = () => {
         </ul>
       </div>
 
-      {/* Product List */}
       <div>
         {products.map((product) => (
           <ul
