@@ -3,6 +3,7 @@ import image1 from "../images/1.png";
 import image2 from "../images/2.png";
 import image3 from "../images/3.png";
 import { NavLink } from "react-router";
+import OrderTitle from "../Components/OrderTitle";
 
 const AllOrder = () => {
   const orders = [
@@ -48,10 +49,11 @@ const AllOrder = () => {
 
   return (
     <div>
-      <div className="max-w-6xl mx-auto mt-10 bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-700">
-          All Orders
-        </h2>
+      <div className="max-w-full mx-auto mt-2 bg-white p-6">
+        <h2 className="text-2xl font-bold mb-6 text-gray-700">All Orders</h2>
+        <div className="py-5">
+          <OrderTitle />
+        </div>
 
         {/* Table Header */}
         <div className="border-b border-gray-300 text-lg font-semibold text-gray-700">
@@ -127,7 +129,7 @@ const AllOrder = () => {
                       Edit
                     </NavLink>
                     <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 text-sm">
-                      Delete
+                      Cencel
                     </button>
                   </li>
                 </ul>
