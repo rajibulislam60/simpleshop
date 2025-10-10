@@ -55,7 +55,6 @@ const AllOrder = () => {
           <OrderTitle />
         </div>
 
-        {/* Table Header */}
         <div className="border-b border-gray-300 text-lg font-semibold text-gray-700">
           <ul className="grid grid-cols-7 gap-4 py-2 text-center">
             <li>ID</li>
@@ -66,7 +65,6 @@ const AllOrder = () => {
           </ul>
         </div>
 
-        {/* Table Body */}
         <div>
           {orders.map((order) => {
             const totalAmount = order.products.reduce(
@@ -80,10 +78,8 @@ const AllOrder = () => {
                 className="border-b border-gray-200 hover:bg-gray-50 py-4"
               >
                 <ul className="grid grid-cols-7 gap-4 items-center text-center">
-                  {/* Order ID */}
                   <li>{order.id}</li>
 
-                  {/* Customer Info */}
                   <li>
                     <div className="text-left">
                       <h3 className="font-semibold">{order.customer.name}</h3>
@@ -96,7 +92,6 @@ const AllOrder = () => {
                     </div>
                   </li>
 
-                  {/* Product List */}
                   <li className="col-span-3">
                     <div className="flex flex-col gap-3">
                       {order.products.map((product) => (
@@ -117,10 +112,7 @@ const AllOrder = () => {
                     </div>
                   </li>
 
-                  {/* Total Amount */}
                   <li className="font-semibold">${totalAmount}</li>
-
-                  {/* Actions */}
                   <li className="flex justify-center gap-2">
                     <NavLink
                       to={`/editorder/${order.id}`}

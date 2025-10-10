@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const EditOrder = () => {
-  // available products
   const productList = [
     { name: "Burger", price: 250 },
     { name: "Pizza", price: 550 },
@@ -9,7 +8,6 @@ const EditOrder = () => {
     { name: "Sandwich", price: 200 },
   ];
 
-  // sample existing order data
   const [orderData, setOrderData] = useState({
     customerName: "John Doe",
     phone: "+8801712345678",
@@ -32,7 +30,6 @@ const EditOrder = () => {
     { text: "Good service", time: "2025-10-10 11:00 AM" },
   ]);
 
-  // previous orders (example)
   const previousOrders = [
     {
       id: 1,
@@ -50,7 +47,6 @@ const EditOrder = () => {
     },
   ];
 
-  // add new product
   const handleAddProduct = () => {
     if (!selectedProduct) return;
     const product = productList.find((p) => p.name === selectedProduct);
@@ -58,18 +54,15 @@ const EditOrder = () => {
     setSelectedProduct("");
   };
 
-  // remove product
   const handleRemoveProduct = (index) => {
     const updated = orderProducts.filter((_, i) => i !== index);
     setOrderProducts(updated);
   };
 
-  // handle customer info change
   const handleChange = (field, value) => {
     setOrderData({ ...orderData, [field]: value });
   };
 
-  // add review
   const handleAddReview = () => {
     if (!reviewInput.trim()) return;
     const now = new Date();
@@ -86,7 +79,6 @@ const EditOrder = () => {
     setReviewInput("");
   };
 
-  // edit done button
   const handleEditDone = () => {
     const totalPrice = orderProducts.reduce((sum, p) => sum + p.price, 0);
     const totalAmount =
@@ -103,13 +95,12 @@ const EditOrder = () => {
     alert("Order edited successfully!");
   };
 
-  // price calculation
   const totalPrice = orderProducts.reduce((sum, p) => sum + p.price, 0);
   const totalAmount =
     totalPrice + orderData.deliveryCharge - orderData.discount;
 
   return (
-    <div className="w-full p-5 bg-gray-50 rounded-md shadow">
+    <div className="w-full h-screen overflow-y-auto p-5 bg-gray-50 rounded-md shadow">
       <h1 className="text-2xl font-semibold mb-5">Edit Order</h1>
 
       <div className="flex justify-between gap-5">
@@ -170,7 +161,6 @@ const EditOrder = () => {
               </select>
             </div>
 
-            {/* Review Input */}
             <div>
               <h4>Order Review</h4>
               <div className="flex gap-2">
@@ -188,14 +178,12 @@ const EditOrder = () => {
                   Add Text
                 </button>
               </div>
-
-              {/* Review List */}
               {reviews.length > 0 && (
                 <div className="mt-3 space-y-2">
                   {reviews.map((r, i) => (
                     <div
                       key={i}
-                      className="border p-2 rounded bg-white shadow-sm text-sm"
+                      className="border flex justify-between p-2 rounded bg-white shadow-sm text-sm"
                     >
                       <p>{r.text}</p>
                       <p className="text-gray-500 text-xs mt-1">⏰ {r.time}</p>
@@ -245,7 +233,6 @@ const EditOrder = () => {
               ))}
             </div>
 
-            {/* Add Product */}
             <div className="flex gap-2 mt-3">
               <select
                 className="w-full border p-2 rounded"
@@ -268,7 +255,6 @@ const EditOrder = () => {
             </div>
           </div>
 
-          {/* Summary Section */}
           <div className="space-y-2 border-t pt-2">
             <div className="flex justify-between">
               <h3>Total Price</h3>
@@ -304,7 +290,6 @@ const EditOrder = () => {
         </div>
       </div>
 
-      {/* Edit Done Button */}
       <div className="w-full mt-6">
         <button
           onClick={handleEditDone}
