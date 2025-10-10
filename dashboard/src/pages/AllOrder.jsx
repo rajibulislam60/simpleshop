@@ -123,7 +123,7 @@ const AllOrder = () => {
                   {/* Actions */}
                   <li className="flex justify-center gap-2">
                     <NavLink
-                      to={`/edit/${order.id}`}
+                      to={`/editorder/${order.id}`}
                       className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 text-sm"
                     >
                       Edit
