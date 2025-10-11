@@ -30,7 +30,7 @@ const Bannar = () => {
     <div className="w-100%">
       <Slider {...settings}>
         {data.map((item) => (
-          <div key={item.id} className="w-full h-[400px]">
+          <div key={item.id} className="w-full h-[200px] md:h-[400px]">
             <img
               src={item.image}
               alt={item.name}

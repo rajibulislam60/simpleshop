@@ -13,8 +13,8 @@ const Search = ({ onSearch }) => {
   return (
     <div className="border-b-1">
       <Container>
-        <div className="py-3 px-2 flex justify-between items-center">
-          <div className="flex gap-8 items-center">
+        <div className="py-3 px-2 md:flex justify-between items-center">
+          <div className="flex gap-8 items-center mb-3 md:mb-0">
             <h1 className="text-2xl font-bold">SimpleShop</h1>
             <h4 className="text-md font-normal">Brends</h4>
           </div>
@@ -23,7 +23,7 @@ const Search = ({ onSearch }) => {
             placeholder="Search products ....."
             value={query}
             onChange={handleSearch}
-            className="w-[450px] px-4 py-2 border border-gray-500 rounded-full"
+            className="md:w-[450px] w-full px-4 py-2 border border-gray-500 rounded-full"
           />
         </div>
       </Container>
