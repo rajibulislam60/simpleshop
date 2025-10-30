@@ -30,13 +30,13 @@ const SingleProduct = () => {
             ← Back to Products
           </Link>
 
-          <div className="flex p-6 mt-4">
+          <div className="md:flex md:p-6 mt-2 md:mt-4">
             <img
               src={product.image}
               alt={product.name}
-              className="md:w-[50%] h-[350px] object-cover rounded"
+              className="w-full md:w-[50%] h-[200px] md:h-[350px] object-cover rounded"
             />
-            <div className="md:w-[50%] px-8 mt-4">
+            <div className="md:w-[50%] md:px-8 mt-2 md:mt-4">
               <h2 className="text-2xl font-bold">{product.name}</h2>
               <h3 className="text-blue-600 font-semibold">
                 Tk {product.price}

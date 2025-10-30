@@ -11,7 +11,7 @@ const TopOfferProducts = () => {
   };
 
   return (
-    <div className="pt-[60px]">
+    <div className="pt-[60px] px-5">
       <h2 className="text-2xl font-bold text-center mb-6">
         Top Brands & Offers
       </h2>
@@ -20,7 +20,7 @@ const TopOfferProducts = () => {
           <div
             key={item.id}
             onClick={() => handleClicktoId(item.id)}
-            className="w-full max-w-[440px] h-[200px] overflow-hidden shadow-lg"
+            className="w-full max-w-[440px] h-[120px] md:h-[200px] overflow-hidden shadow-lg"
           >
             <img
               src={item.image}

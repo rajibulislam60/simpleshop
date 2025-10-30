@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Container from "./Container";
+import { IoSearch } from "react-icons/io5";
 
 const Search = ({ onSearch }) => {
   const [query, setQuery] = useState("");
@@ -18,13 +19,16 @@ const Search = ({ onSearch }) => {
             <h1 className="text-2xl font-bold">SimpleShop</h1>
             <h4 className="text-md font-normal">Brends</h4>
           </div>
-          <input
-            type="text"
-            placeholder="Search products ....."
-            value={query}
-            onChange={handleSearch}
-            className="md:w-[450px] w-full px-4 py-2 border border-gray-500 rounded-full"
-          />
+          <div className="relative">
+            <IoSearch className="absolute top-[50%] translate-y-[-50%] left-4" />
+            <input
+              type="text"
+              placeholder="Search products ....."
+              value={query}
+              onChange={handleSearch}
+              className="md:w-[450px] w-full px-10 py-2 border border-gray-500 rounded-full relative"
+            />
+          </div>
         </div>
       </Container>
     </div>

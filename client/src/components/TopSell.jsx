@@ -11,7 +11,7 @@ const TopSell = () => {
   };
 
   return (
-    <div className="pt-[80px]">
+    <div className="pt-[80px] px-5">
       <h2 className="text-2xl font-bold mx-auto text-center mb-6">
         Top Selling Products
       </h2>
@@ -25,14 +25,14 @@ const TopSell = () => {
             <img
               src={item.image}
               alt={item.name}
-              className="w-full h-64 object-cover rounded-t-md"
+              className="w-full h-40 md:h-64 object-cover rounded-t-md"
             />
-            <div className="px-3 py-3 flex-1">
+            <div className="px-3 py-3 text-center md:text-start flex-1">
               <h4 className="text-md font-medium capitalize">{item.name}</h4>
               <h2 className="text-xl font-semibold">Tk- {item.price}</h2>
             </div>
             <div>
-              <button className="w-full py-2 capitalize bg-teal-400 text-xl font-semibold hover:bg-teal-500 transition rounded-b-md">
+              <button className="w-full py-2 capitalize text-white bg-teal-600 text-xl font-semibold hover:bg-teal-800 transition rounded-b-md">
                 Order
               </button>
             </div>
