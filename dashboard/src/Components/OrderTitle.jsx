@@ -5,7 +5,7 @@ const OrderTitle = () => {
     <div className="flex justify-between">
       <div className="border rounded-md shadow-2xl bg-gray-900 text-white font-semibold px-12 py-6 items-center text-center">
         <h2>Total Order</h2>
-        <h3>1000</h3>
+        <h3>22,000</h3>
       </div>
       <div className="border rounded-md shadow-2xl bg-gray-900 text-white font-semibold px-12 py-6 items-center text-center">
         <h2>Processing</h2>
@@ -13,11 +13,11 @@ const OrderTitle = () => {
       </div>
       <div className="border rounded-md shadow-2xl bg-gray-900 text-white font-semibold px-12 py-6 items-center text-center">
         <h2>Confirm</h2>
-        <h3>900</h3>
+        <h3>150</h3>
       </div>
       <div className="border rounded-md shadow-2xl bg-gray-900 text-white font-semibold px-12 py-6 items-center text-center">
         <h2>Cencel</h2>
-        <h3>100</h3>
+        <h3>50</h3>
       </div>
     </div>
   );
