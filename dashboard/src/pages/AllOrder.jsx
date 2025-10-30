@@ -1,6 +1,6 @@
 import React from "react";
-import image1 from "../images/1.png";
-import image2 from "../images/2.png";
+import image1 from "../images/1.jpg";
+import image2 from "../images/2.jpg";
 import image3 from "../images/3.png";
 import { NavLink } from "react-router";
 import OrderTitle from "../Components/OrderTitle";
