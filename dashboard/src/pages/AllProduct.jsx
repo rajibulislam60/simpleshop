@@ -1,36 +1,27 @@
-import React from "react";
-import image1 from "../images/1.jpg";
-import image2 from "../images/2.jpg";
-import image3 from "../images/3.png";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
+import axios from "axios";
 
 const AllProduct = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Smart Watch",
-      price: 120,
-      discountPrice: 99,
-      quantity: 10,
-      image: image1,
-    },
-    {
-      id: 2,
-      name: "Wireless Headphones",
-      price: 150,
-      discountPrice: 120,
-      quantity: 8,
-      image: image2,
-    },
-    {
-      id: 3,
-      name: "Bluetooth Speaker",
-      price: 80,
-      discountPrice: 65,
-      quantity: 15,
-      image: image3,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fatchProduct();
+  }, []);
+
+  const fatchProduct = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/product/allproducts",
+        { withCredentials: true }
+      );
+
+      console.log(response.data.data);
+      setProducts(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="max-w-5xl mx-auto mt-10 bg-white rounded-xl shadow-md p-5">
@@ -58,7 +49,7 @@ const AllProduct = () => {
             <li>{product.id}</li>
             <li>
               <img
-                src={product.image}
+                src={product.image?.[0]}
                 alt={product.name}
                 className="w-14 h-14 object-cover rounded-md mx-auto"
               />
