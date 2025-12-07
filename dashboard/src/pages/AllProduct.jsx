@@ -70,7 +70,7 @@ const AllProduct = () => {
             </li>
             <li>{product.name}</li>
             <li>${product.price}</li>
-            <li className="text-green-600">${product.discountPrice}</li>
+            <li className="text-green-600">${product.discount}</li>
             <li>{product.quantity}</li>
             <li className="flex justify-center gap-2">
               <NavLink

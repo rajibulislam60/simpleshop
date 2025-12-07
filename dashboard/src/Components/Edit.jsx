@@ -1,24 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router";
 
 const Edit = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [product, setProduct] = useState({
-    name: "Smart Watch",
-    description: "A modern smartwatch with health tracking features.",
-    price: 120,
-    discountPrice: 99,
-    quantity: 10,
+    name: "",
+    description: "",
+    price: "",
+    discount: "",
+    quantity: "",
     image: "",
   });
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/api/v1/product/singleproduct/${id}`
+        );
+        setProduct(res.data.product);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Updated Product:", product);
-    alert("Product updated successfully!");
+
+    try {
+      const formData = new FormData();
+      formData.append("name", product.name);
+      formData.append("description", product.description);
+      formData.append("price", product.price);
+      formData.append("discount", product.discount);
+      formData.append("quantity", product.quantity);
+
+      if (product.image instanceof File) {
+        formData.append("image", product.image);
+      }
+
+      await axios.put(
+        `http://localhost:8000/api/v1/product/updatedproduct/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      alert("Product Updated Successfully!");
+      navigate("/allproduct");
+    } catch (error) {
+      console.log(error);
+      alert("Error updating product");
+    }
   };
 
   return (
@@ -34,7 +81,7 @@ const Edit = () => {
           value={product.name}
           onChange={handleChange}
           placeholder="Product Name"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-teal-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
         />
 
         <textarea
@@ -42,7 +89,7 @@ const Edit = () => {
           value={product.description}
           onChange={handleChange}
           placeholder="Description"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 h-24 resize-none focus:outline-none focus:ring focus:ring-teal-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 h-24"
         ></textarea>
 
         <input
@@ -51,16 +98,16 @@ const Edit = () => {
           value={product.price}
           onChange={handleChange}
           placeholder="Price"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-teal-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
         />
 
         <input
           type="number"
-          name="discountPrice"
-          value={product.discountPrice}
+          name="discount"
+          value={product.discount}
           onChange={handleChange}
           placeholder="Discount Price"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-teal-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
         />
 
         <input
@@ -69,21 +116,19 @@ const Edit = () => {
           value={product.quantity}
           onChange={handleChange}
           placeholder="Quantity"
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-teal-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
         />
 
         <input
           type="file"
           name="image"
-          onChange={(e) =>
-            setProduct({ ...product, image: e.target.files[0].name })
-          }
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-teal-400"
+          onChange={(e) => setProduct({ ...product, image: e.target.files[0] })}
+          className="w-full border border-gray-300 rounded-md px-3 py-2"
         />
 
         <button
           type="submit"
-          className="w-full bg-teal-500 text-white font-semibold py-2 rounded-md hover:bg-teal-600 transition-all"
+          className="w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-600 transition-all"
         >
           Update Product
         </button>
