@@ -16,8 +16,22 @@ const AllProduct = () => {
         { withCredentials: true }
       );
 
-      console.log(response.data.data);
       setProducts(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/v1/product/deletedproduct/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      setProducts(products.filter((p) => p._id !== id));
     } catch (error) {
       console.log(error);
     }
@@ -43,10 +57,10 @@ const AllProduct = () => {
       <div>
         {products.map((product) => (
           <ul
-            key={product.id}
+            key={product._id}
             className="grid grid-cols-7 gap-4 items-center py-3 text-center border-b border-gray-200 hover:bg-gray-50"
           >
-            <li>{product.id}</li>
+            <li>{product._id}</li>
             <li>
               <img
                 src={product.image?.[0]}
@@ -60,12 +74,15 @@ const AllProduct = () => {
             <li>{product.quantity}</li>
             <li className="flex justify-center gap-2">
               <NavLink
-                to={`/edit/${product.id}`}
+                to={`/edit/${product._id}`}
                 className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 text-sm"
               >
                 Edit
               </NavLink>
-              <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 text-sm">
+              <button
+                onClick={() => handleDelete(product._id)}
+                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 text-sm"
+              >
                 Delete
               </button>
             </li>
