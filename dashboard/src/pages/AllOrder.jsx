@@ -1,51 +1,27 @@
-import React from "react";
-import image1 from "../images/1.jpg";
-import image2 from "../images/2.jpg";
-import image3 from "../images/3.png";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import OrderTitle from "../Components/OrderTitle";
+import axios from "axios";
 
 const AllOrder = () => {
-  const orders = [
-    {
-      id: 1,
-      customer: {
-        name: "John Doe",
-        phone: "+8801712345678",
-        address: "Bashundhara, Dhaka",
-      },
-      products: [
-        {
-          id: 1,
-          name: "Smart Watch",
-          totalprice: 120,
-          image: image1,
-        },
-        {
-          id: 2,
-          name: "Wireless Headphones",
-          totalprice: 150,
-          image: image2,
-        },
-      ],
-    },
-    {
-      id: 2,
-      customer: {
-        name: "Jane Smith",
-        phone: "+8801987654321",
-        address: "Badda, Dhaka",
-      },
-      products: [
-        {
-          id: 3,
-          name: "Bluetooth Speaker",
-          totalprice: 80,
-          image: image3,
-        },
-      ],
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    fetchOrder();
+  }, []);
+
+  const fetchOrder = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/order/allorder",
+        { withCredentials: true }
+      );
+      console.log(response.data.data);
+      setOrders(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -68,7 +44,7 @@ const AllOrder = () => {
         <div>
           {orders.map((order) => {
             const totalAmount = order.products.reduce(
-              (sum, p) => sum + p.totalprice,
+              (sum, p) => sum + p.price,
               0
             );
 
@@ -82,7 +58,7 @@ const AllOrder = () => {
 
                   <li>
                     <div className="text-left">
-                      <h3 className="font-semibold">{order.customer.name}</h3>
+                      <h3 className="font-semibold">{order.customer.c_name}</h3>
                       <p className="text-sm text-gray-600">
                         {order.customer.phone}
                       </p>
@@ -99,14 +75,12 @@ const AllOrder = () => {
                           key={product.id}
                           className="flex items-center justify-center gap-3"
                         >
-                          <img
+                          {/* <img
                             src={product.image}
                             alt={product.name}
                             className="w-12 h-12 object-cover rounded-md"
-                          />
-                          <span className="font-medium">
-                            {product.name} (${product.totalprice})
-                          </span>
+                          /> */}
+                          <span className="font-medium">{product.name}</span>
                         </div>
                       ))}
                     </div>
@@ -120,9 +94,6 @@ const AllOrder = () => {
                     >
                       Edit
                     </NavLink>
-                    <button className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 text-sm">
-                      Cencel
-                    </button>
                   </li>
                 </ul>
               </div>
