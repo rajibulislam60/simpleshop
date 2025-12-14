@@ -16,8 +16,26 @@ const AllOrder = () => {
         "http://localhost:8000/api/v1/order/allorder",
         { withCredentials: true }
       );
-      console.log(response.data.data);
       setOrders(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // ================= STATUS CHANGE =================
+  const handleStatusChange = async (orderId, status) => {
+    try {
+      await axios.patch(
+        `http://localhost:8000/api/v1/order/status/${orderId}`,
+        { status },
+        { withCredentials: true }
+      );
+
+      setOrders((prev) =>
+        prev.map((order) =>
+          order._id === orderId ? { ...order, status } : order
+        )
+      );
     } catch (error) {
       console.log(error);
     }
@@ -27,69 +45,89 @@ const AllOrder = () => {
     <div>
       <div className="max-w-full mx-auto mt-2 bg-white p-6">
         <h2 className="text-2xl font-bold mb-6 text-gray-700">All Orders</h2>
+
         <div className="py-5">
           <OrderTitle />
         </div>
 
         <div className="border-b border-gray-300 text-lg font-semibold text-gray-700">
-          <ul className="grid grid-cols-7 gap-4 py-2 text-center">
+          <ul className="grid grid-cols-8 gap-2 py-2 text-center">
             <li>ID</li>
             <li>Customer Details</li>
             <li className="col-span-3">Products</li>
             <li>Total Amount</li>
-            <li>Action</li>
+            <li>Status</li>
+            <li>Edit</li>
           </ul>
         </div>
 
         <div>
           {orders.map((order) => {
             const totalAmount = order.products.reduce(
-              (sum, p) => sum + p.price,
+              (sum, p) => sum + p.price * p.quantity,
               0
             );
 
             return (
               <div
-                key={order.id}
+                key={order._id}
                 className="border-b border-gray-200 hover:bg-gray-50 py-4"
               >
-                <ul className="grid grid-cols-7 gap-4 items-center text-center">
-                  <li>{order.id}</li>
+                <ul className="grid grid-cols-8 gap-2 items-center text-center">
+                  <li className="text-sm">{order._id}</li>
 
                   <li>
                     <div className="text-left">
-                      <h3 className="font-semibold">{order.customer.c_name}</h3>
+                      <h3 className="font-semibold">
+                        {order.customer?.c_name}
+                      </h3>
                       <p className="text-sm text-gray-600">
-                        {order.customer.phone}
+                        {order.customer?.phone}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {order.customer.address}
+                        {order.customer?.address}
                       </p>
                     </div>
                   </li>
 
                   <li className="col-span-3">
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-2">
                       {order.products.map((product) => (
                         <div
-                          key={product.id}
-                          className="flex items-center justify-center gap-3"
+                          key={product._id}
+                          className="flex justify-center gap-2 text-sm"
                         >
-                          {/* <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-12 h-12 object-cover rounded-md"
-                          /> */}
                           <span className="font-medium">{product.name}</span>
+                          <span className="text-gray-500">
+                            x{product.quantity}
+                          </span>
                         </div>
                       ))}
                     </div>
                   </li>
 
                   <li className="font-semibold">${totalAmount}</li>
-                  <li className="flex justify-center gap-2">
+
+                  {/* STATUS */}
+                  <li>
+                    <select
+                      value={order.status}
+                      onChange={(e) =>
+                        handleStatusChange(order._id, e.target.value)
+                      }
+                      className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="confirmed">Confirmed</option>
+                      <option value="hold">Hold</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                  </li>
+
+                  {/* EDIT */}
+                  <li>
                     <NavLink
-                      to={`/editorder/${order.id}`}
+                      to={`/editorder/${order._id}`}
                       className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 text-sm"
                     >
                       Edit
