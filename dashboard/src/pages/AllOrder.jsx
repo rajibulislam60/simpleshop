@@ -108,7 +108,6 @@ const AllOrder = () => {
 
                   <li className="font-semibold">${totalAmount}</li>
 
-                  {/* STATUS */}
                   <li>
                     <select
                       value={order.status}
@@ -124,7 +123,6 @@ const AllOrder = () => {
                     </select>
                   </li>
 
-                  {/* EDIT */}
                   <li>
                     <NavLink
                       to={`/editorder/${order._id}`}
