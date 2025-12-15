@@ -5,6 +5,13 @@ import axios from "axios";
 
 const AllOrder = () => {
   const [orders, setOrders] = useState([]);
+  const [orderStats, setOrderStats] = useState({
+    total: 0,
+    pending: 0,
+    hold: 0,
+    confirmed: 0,
+    cancelled: 0,
+  });
 
   useEffect(() => {
     fetchOrder();
@@ -17,6 +24,18 @@ const AllOrder = () => {
         { withCredentials: true }
       );
       setOrders(response.data.data);
+      const ordersData = response.data.data;
+      setOrders(ordersData);
+
+      const stats = {
+        total: ordersData.length,
+        pending: ordersData.filter((o) => o.status === "pending").length,
+        hold: ordersData.filter((o) => o.status === "hold").length,
+        confirmed: ordersData.filter((o) => o.status === "confirmed").length,
+        cancelled: ordersData.filter((o) => o.status === "cancelled").length,
+      };
+
+      setOrderStats(stats);
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +66,13 @@ const AllOrder = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-700">All Orders</h2>
 
         <div className="py-5">
-          <OrderTitle />
+          <OrderTitle
+            total={orderStats.total}
+            pending={orderStats.pending}
+            hold={orderStats.hold}
+            confirmed={orderStats.confirmed}
+            cancelled={orderStats.cancelled}
+          />
         </div>
 
         <div className="border-b border-gray-300 text-lg font-semibold text-gray-700">
