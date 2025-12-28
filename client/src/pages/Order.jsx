@@ -1,16 +1,53 @@
-import React from "react";
-import { useLocation, Link } from "react-router";
+import React, { useEffect } from "react";
+import { useLocation, Link, useNavigate } from "react-router";
 import Container from "../components/Container";
+import axios from "axios";
 
 const Order = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const { product, quantity, formData } = state || {};
+
+  const totalPrice = product?.price * quantity;
+
+  useEffect(() => {
+    if (product && formData) {
+      createOrder();
+    }
+  }, []);
+
+  const createOrder = async () => {
+    try {
+      await axios.post("http://localhost:8000/api/v1/order/createorder", {
+        products: [
+          {
+            productId: product._id || product.id,
+            quantity: quantity,
+            image: product.image,
+            name: product.name,
+            price: product.price,
+          },
+        ],
+        customer: {
+          c_name: formData.name,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          totalPrice,
+        },
+      });
+
+      console.log("Order created successfully!");
+    } catch (error) {
+      console.log("Order error:", error);
+      alert("❌ Order failed! Try again.");
+      navigate("/shop");
+    }
+  };
 
   if (!product || !formData) {
     return <h2 className="text-center mt-10">No order details found</h2>;
   }
-
-  const totalPrice = product.price * quantity;
 
   return (
     <div>
