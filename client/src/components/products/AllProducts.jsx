@@ -1,10 +1,28 @@
-import React from "react";
-import data from "../data";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import data from "../data";
+import axios from "axios";
 
-const AllProducts = ({ products }) => {
+const AllProducts = () => {
   const navigate = useNavigate();
-  const itemsToShow = products && products.length > 0 ? products : data;
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8000/api/v1/product/allproducts"
+      );
+      setProducts(res.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const itemsToShow = products.length > 0 ? products : data;
 
   const handleClicktoId = (id) => {
     navigate(`/shop/${id}`);
@@ -16,12 +34,12 @@ const AllProducts = ({ products }) => {
         {itemsToShow.length > 0 ? (
           itemsToShow.map((item) => (
             <div
-              key={item.id}
+              key={item._id || item.id}
               className="border border-gray-300 rounded-xl shadow-lg bg-white hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col h-full"
             >
               <div className="flex flex-row md:flex-col flex-1">
                 <div
-                  onClick={() => handleClicktoId(item.id)}
+                  onClick={() => handleClicktoId(item._id || item.id)}
                   className="w-1/2 md:w-full"
                 >
                   <img
@@ -32,7 +50,7 @@ const AllProducts = ({ products }) => {
                 </div>
                 <div className="flex flex-col justify-between w-1/2 md:w-full px-4 py-3 text-left md:text-center">
                   <div
-                    onClick={() => handleClicktoId(item.id)}
+                    onClick={() => handleClicktoId(item._id || item.id)}
                     className="flex-1"
                   >
                     <h4 className="text-lg md:text-xl font-semibold capitalize text-gray-800 hover:text-teal-600 transition">
@@ -46,7 +64,7 @@ const AllProducts = ({ products }) => {
               </div>
 
               <button
-                onClick={() => handleClicktoId(item.id)}
+                onClick={() => handleClicktoId(item._id || item.id)}
                 className="w-full py-3 bg-teal-500 hover:bg-teal-600 text-white text-lg font-semibold rounded-b-xl transition"
               >
                 Order Now

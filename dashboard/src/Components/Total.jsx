@@ -6,14 +6,13 @@ const Total = () => {
   const handleDateChange = (e) => {
     const date = new Date(e.target.value);
     if (!isNaN(date)) {
-      const formattedDate = date.toLocaleDateString("en-GB"); // shows dd/mm/yyyy
+      const formattedDate = date.toLocaleDateString("en-GB");
       setSelectedDate(formattedDate);
     }
   };
 
   return (
     <div>
-      {/* Top Section */}
       <div className="flex justify-between">
         <div className="border rounded-md shadow-2xl bg-gray-900 text-white font-semibold px-12 py-6 items-center text-center">
           <h2>Total Order</h2>
